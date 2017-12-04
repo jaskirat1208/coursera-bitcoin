@@ -16,10 +16,10 @@ public class Simulation {
       // code for all 3x3x3x2 = 54 combinations.
       Scanner in = new Scanner(System.in);
       int numNodes = 100;
-      double p_graph = in.nextDouble(); // parameter for random graph: prob. that an edge will exist
-      double p_malicious = in.nextDouble(); // prob. that a node will be set to be malicious
-      double p_txDistribution = in.nextDouble(); // probability of assigning an initial transaction to each node
-      int numRounds = in.nextInt(); // number of simulation rounds your nodes will run for
+      double p_graph = 0.1;                     //in.nextDouble();   // parameter for random graph: prob. that an edge will exist
+      double p_malicious = 0.2;                 //in.nextDouble();  // prob. that a node will be set to be malicious
+      double p_txDistribution = 0.3 ;           //in.nextDouble(); // probability of assigning an initial transaction to each node
+      int numRounds = 10;                       //in.nextInt();   // number of simulation rounds your nodes will run for
 
       // pick which nodes are malicious and which are compliant
       Node[] nodes = new Node[numNodes];
@@ -77,10 +77,11 @@ public class Simulation {
          // proposals. The value is an ArrayList containing 1x2 Integer arrays. The first
          // element of each array is the id of the transaction being proposed and the second
          // element is the index # of the node proposing the transaction.
-         HashMap<Integer, Set<Candidate>> allProposals = new HashMap<>();
+         HashMap<Integer, Set<Candidate> > allProposals = new HashMap<>();
 
          for (int i = 0; i < numNodes; i++) {
             Set<Transaction> proposals = nodes[i].sendToFollowers();
+//            if (proposals==null) return ;
             for (Transaction tx : proposals) {
                if (!validTxIds.contains(tx.id))
                   continue; // ensure that each tx is actually valid
